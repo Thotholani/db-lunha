@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Room <%= frontEndfoundRoom.name %></title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="font-inter">
+    <section class="text-gray-600 body-font relative">
+      <div class="container px-5 py-10 mx-auto">
+        <a
+          href="/admin"
+          class="mx-auto text-white font-inter font-light bg-gold border py-2 px-6 focus:outline-none hover:border hover:text-gold hover:bg-transparent border-gold text-lg"
+        >
+          Previous Menu
+        </a>
+        <% if (changed) { %>
+        <div
+          class="p-4 my-4 text-center text-sm text-green-800 rounded-lg bg-green-50"
+          role="alert"
+        >
+          <span class="text-center"> Display successfully edited. </span
+          ><a href="/admin" class="underline font-semibold"
+            >Back to admin rooms</a
+          >
+        </div>
+        <% } %>
+
+        <div class="flex flex-col text-center w-full mb-12">
+          <h1
+            class="sm:text-4xl text-3xl font-bold title-font mb-4 text-gray-900 font-playFair"
+          >
+            <%= frontEndfoundRoom.name %> Selected
+          </h1>
+          <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+            Please edit the details below to change the information on the
+            screens
+          </p>
+        </div>
+        <div class="lg:w-1/2 md:w-2/3 mx-auto">
+          <form
+            action="/edit"
+            class="flex flex-wrap -m-2"
+            method="post"
+            onsubmit="saveData()"
+            autocomplete="off"
+          >
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="Name" class="leading-7 text-sm text-gray-600"
+                  >Room Name *</label
+                >
+                <input
+                  readonly
+                  type="text"
+                  id="name"
+                  value="<%= frontEndfoundRoom.name %>"
+                  name="name"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-goldbg-gold focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="occupants" class="leading-7 text-sm text-gray-600"
+                  >Occupants</label
+                >
+                <input
+                  required
+                  type="text"
+                  id="occupants"
+                  name="occupants"
+                  value="<%= frontEndfoundRoom.occupants %>"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-goldbg-gold focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+            </div>
+            <input
+              type="text"
+              value="<%= frontEndfoundRoom.number %>"
+              name="number"
+              hidden
+              readonly
+            />
+            <div class="p-2 w-full">
+              <button
+                type="submit"
+                class="w-full text-white text-center font-inter font-light bg-gold border py-2 px-6 focus:outline-none hover:border hover:text-gold hover:bg-transparent border-gold text-lg"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+          <p class="text-sm text-gold text-center mt-6">
+            *This field is view only. Values cannot be edited
+          </p>
+        </div>
+      </div>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      var form = document.getElementById("form");
+      var occupants = document.getElementById("occupants");
+      var roomName = document.getElementById("name");
+      var roomNumber = document.getElementById("number");
+
+      function saveData() {
+        if (occupants.value) {
+          socket.emit("edit room", [roomName.value, occupants.value]);
+          // occupants.value = "";
+        }
+      }
+
+      // form.addEventListener("submit", function (e) {
+      //   e.preventDefault();
+
+      //   e.currentTarget.submit();
+      // });
+    </script>
+  </body>
+</html>

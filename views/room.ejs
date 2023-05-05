@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= frontEndfoundRoom.name %></title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body
+    class="flex justify-center items-center h-screen flex-col text-gray-600 font-inter"
+  >
+    <a href="/rooms" class="text-center flex justify-center">
+      <img src="/images/lunha.png" alt="" class="w-3/12" />
+    </a>
+    <h1 id="occupants" class="title-adjustable text-gray-900">
+      <%= frontEndfoundRoom.occupants %>
+    </h1>
+    <h1 class="title font-playFair text-gold font">
+      <%= frontEndfoundRoom.name %>
+    </h1>
+    <p class="brand">powered by Kelson innovations</p>
+    <input
+      id="name"
+      type="text"
+      value="<%= frontEndfoundRoom.name %>"
+      hidden
+      readonly
+    />
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      var occupants = document.getElementById("occupants");
+      const roomName = document.getElementById("name").value;
+
+      socket.on("edit room", function (msg) {
+        let nameMsg = msg[0];
+        let occupantsMsg = msg[1];
+
+        if (roomName === nameMsg) {
+          occupants.innerHTML = occupantsMsg;
+        }
+      });
+    </script>
+  </body>
+</html>

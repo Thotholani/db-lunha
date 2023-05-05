@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Nalikwanda 1",
+    "occupants": " ",
+    "number": "1"
+  },
+  {
+    "name": "Nalikwanda 2",
+    "occupants": "BOZ",
+    "number": "2"
+  },
+  {
+    "name": "Zambezi",
+    "occupants": " ",
+    "number": "3"
+  },
+  {
+    "name": "Kafue",
+    "occupants": " ",
+    "number": "4"
+  },
+  {
+    "name": "Luangwa",
+    "occupants": " ",
+    "number": "5"
+  },
+  {
+    "name": "Kariba",
+    "occupants": " ",
+    "number": "6"
+  },
+  {
+    "name": "Insaka",
+    "occupants": " ",
+    "number": "7"
+  },
+  {
+    "name": "Siavonga",
+    "occupants": " ",
+    "number": "8"
+  },
+  {
+    "name": "Nsumbu",
+    "occupants": " ",
+    "number": "9"
+  }
+]
