@@ -83,10 +83,18 @@ app.get("/rooms/:roomName", (req, res) => {
   let roomName = req.params.roomName;
   roomName = roomName.toString();
   // console.log("The room name found is " + roomName);
-  const foundRoom = roomsArray.find((object) => {
-    return object.name === roomName;
-  });
-  res.render("room", { frontEndfoundRoom: foundRoom });
+  try {
+    const foundRoom = roomsArray.find((object) => {
+      return object.name === roomName;
+    });
+
+    console.log("the found room is " + foundRoom);
+
+    res.render("room", { frontEndfoundRoom: foundRoom });
+  } catch (error) {
+    console.error(err);
+    res.status(500).send("Could not find room");
+  }
 });
 
 app.post("/edit", async function (req, res) {
